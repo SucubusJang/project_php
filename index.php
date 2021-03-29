@@ -41,7 +41,7 @@
                 <input type="text" id="or_st" readonly style="text-align: center;">
             </div>
             <div class="column">
-                <button class="btnsuccess">ชำระเงิน</button>
+                <div id="pay"></div>
             </div>
         </div>
         <a href="#" id="btnEmpty" class="btnEmpty">Empty Cart</a>
@@ -86,6 +86,7 @@
         }
 
         function add_product(idx, qtyId) {
+            orId = document.getElementById("or_Id").value;
             for (i = 0; i <= qtyId; i++) {
                 if (i == qtyId) {
                     qty = document.getElementById("" + qtyId + "").value;
@@ -98,7 +99,7 @@
             }
             xhttp.open("POST", "order_rest.php", true);
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhttp.send("Id=" + idx + "&qty=" + qty);
+            xhttp.send("Id=" + idx + "&qty=" + qty + "&orId=" + orId);
             for (i = 0; i <= qtyId; i++) {
                 document.getElementById("" + qtyId + "").value = 1;
             }
@@ -128,7 +129,7 @@
                         text += "<td align='right'>" + data[i].amount + "</td>";
                         text += "<td>" + data[i].price + "</td>";
                         text += "<td>" + data[i].price * data[i].amount + "</td>";
-                        text += "<td><button onclick='del_order("+data[i].id+")'>ลบรายการ</button></td>";
+                        text += "<td><button onclick='del_order(" + data[i].id + "," + data[i].or_id + ")'>ลบรายการ</button></td>";
                         text += "</tr>";
                         net += data[i].price * data[i].amount;
                         total += parseInt(data[i].amount);
@@ -142,8 +143,12 @@
                     text += "<td></td>";
                     text += "</table>";
                     orId.value = id;
-
                     out.innerHTML = text;
+
+                    pay = document.getElementById("pay");
+                    orId = document.getElementById("or_Id").value;
+                    pay.innerHTML = "<button class='btnsuccess' onclick='payment(" + orId + ")'>ชำระเงิน</button>";
+
                     if (status == 0) {
                         or_st.value = "รายการยังไม่เสร็จสิ้น";
                     } else {
@@ -154,8 +159,27 @@
             xhttp.open("GET", "order_rest.php?showlist=showlist", true);
             xhttp.send();
         }
-        function del_order(idx){
-            
+
+        function del_order(idx, orId) {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                }
+            }
+            xhttp.open("GET", "order_rest.php?Id=" + idx + "&del_order=del_order&orId=" + orId + "", true);
+            xhttp.send();
+        }
+
+        function payment(idx) {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                // console.log(this.readyState + ", ", this.status);
+                console.log(this.responseText);
+            }
+            xhttp.open("POST", "order_rest.php", true);
+            xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhttp.send("Id="+idx+"&update_order=update_order");
         }
     </script>
 </body>
