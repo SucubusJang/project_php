@@ -18,19 +18,9 @@
         <div class="text-header">
             <h2>Product Catalog</h2>
         </div>
-        <Table>
-            <thead>
-                <th>รหัสสินค้า</th>
-                <th>ชื่อสินค้า</th>
-                <th>ราคาสินค้า</th>
-                <th>จำนวน</th>
-                <th>จัดการ</th>
-            </thead>
-            <tbody id="show_product">
-
-            </tbody>
-        </Table>
+        <div id="show_product"></div>
     </div>
+    
     <script>
         function show_product() {
             let xhttp = new XMLHttpRequest();
@@ -42,10 +32,18 @@
                     out = document.getElementById("show_product");
                     // console.log(data.length);
                     text = "";
+                    text += "<div class='row'>";
                     for (i = 0; i < data.length; i++) {
-                        text += "<div class=''></div>";
-
+                        text += "<div class='column'>";
+                        text += "<div class='card'>";
+                        text += "<img src='img/img.png' alt='Girl in a jacket'><br>";
+                        text += data[i].name+"<br>";
+                        text += "฿ "+data[i].price+" <input type='number' name='' id='' size='4' max='"+data[i].stock+"' min='1' value='1'>";
+                        text += " <button>Add to Cart</button>";
+                        text += "</div>";
+                        text += "</div>";
                     }
+                    text += "</div>";
                     out.innerHTML = text;
                 }
 

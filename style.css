@@ -57,3 +57,8 @@ div {
     display: table;
     clear: both;
 }
+img{
+    height: auto;
+	width:160px;
+	position:relative;
+}
