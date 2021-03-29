@@ -38,8 +38,8 @@
                         text += "<div class='card'>";
                         text += "<img src='img/img.png' alt='Girl in a jacket'><br>";
                         text += data[i].name+"<br>";
-                        text += "฿ "+data[i].price+" <input type='number' name='' id='' size='4' max='"+data[i].stock+"' min='1' value='1'>";
-                        text += " <button onclick='add_product("+data[i].id+")'>Add to Cart</button>";
+                        text += "฿ "+data[i].price+" <input type='number' name='' id='"+i+"' size='4' max='"+data[i].stock+"' min='1' value='1'>";
+                        text += " <button onclick='add_product("+data[i].id+","+i+")'>Add to Cart</button>";
                         text += "</div>";
                         text += "</div>";
                     }
@@ -51,14 +51,23 @@
             xhttp.open("GET", "product_rest.php?show_pro=show_pro", true);
             xhttp.send();
         }
-        function add_product(idx){
+        function add_product(idx,qtyId){
+            for(i=0;i<=qtyId;i++){
+                if(i == qtyId){
+                    qty = document.getElementById(""+qtyId+"").value;
+                }
+            }
+            // alert(qty);
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 console.log(this.responseText);
             }
             xhttp.open("POST","order_rest.php",true);
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhttp.send();
+            xhttp.send("Id="+idx+"&qty="+qty);
+            for(i=0;i<=qtyId;i++){
+                document.getElementById(""+qtyId+"").value = 1;
+            }
         }
     </script>
 </body>
