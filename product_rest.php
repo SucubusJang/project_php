@@ -22,7 +22,7 @@
             insert_product($name_pro,$price_pro,$stock_pro,$debug_mode);
         }else if(isset($_POST['name'])){
             $Id = $_POST['Id'];
-            $name = $_POST['name'];
+            $name = $_POST['name']; 
             $price = $_POST['price'];
             $stock = $_POST['stock'];  
             update_product($Id,$name,$price,$stock,$debug_mode);
@@ -33,7 +33,6 @@
         $data = $mydb->query("SELECT * FROM `product`");
         return $data;
     }
-
     function insert_product($name_pro,$price_pro,$stock_pro,$debug_mode) {
         $mydb = new db("root","","shopping" ,$debug_mode);
         $data = $mydb->query_only("INSERT INTO `product`(`id`, `name`, `price`, `stock`) VALUES (null,'{$name_pro}','{$price_pro}','{$stock_pro}')");

@@ -26,7 +26,14 @@
            $data = $result->fetch_all(MYSQLI_ASSOC);
            return $data;
        }
-
+       function query_show($sql){
+        $result = $this->db->query($sql);
+        $this->debug_text($sql);
+            while($data = $result->fetch_all(MYSQLI_ASSOC)){
+                $resultarray[] = $data;
+            }
+        return $resultarray;
+       }
        function query_only($sql){
            $result = $this->db->query($sql);
        }
@@ -35,4 +42,3 @@
            $this->db->close();
        }
     }
-?>

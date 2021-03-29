@@ -1,0 +1,59 @@
+.container {
+    width: 960px;
+    margin: 0 auto;
+    height: auto;
+    text-align: center;
+}
+
+table {
+    text-align: center;
+    margin: 0 auto;
+}
+
+#btnEmpty {
+    background-color: #ffffff;
+    border: #d00000 1px solid;
+    padding: 5px 10px;
+    color: #d00000;
+    float: right;
+    text-decoration: none;
+    border-radius: 3px;
+    margin: 10px 0px;
+}
+
+.text-header {
+    border-bottom: 1px solid red;
+}
+
+h2 {
+    text-align: left;
+}
+
+div {
+    display: block;
+}
+
+.column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background-color: #f1f1f1;
+}
+
+.row {
+    margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
