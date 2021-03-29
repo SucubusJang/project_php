@@ -27,6 +27,9 @@
             $stock = $_POST['stock'];  
             update_product($Id,$name,$price,$stock,$debug_mode);
         }
+    }else{
+        debug_text("Error Unknow this Request" ,$debug_mode);
+        http_response_code(405);
     }
     function show_product($debug_mode){
         $mydb = new db("root","","shopping" ,$debug_mode);

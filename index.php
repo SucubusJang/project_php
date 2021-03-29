@@ -53,7 +53,12 @@
         }
         function add_product(idx){
             let xhttp = new XMLHttpRequest();
-            
+            xhttp.onreadystatechange = function() {
+
+            }
+            xhttp.open("POST","",true);
+            xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhttp.send();
         }
     </script>
 </body>
