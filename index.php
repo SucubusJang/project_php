@@ -72,6 +72,7 @@
             }
         }
         function show_orderList(){
+            lable = ['ชื่อสินค้า','รหัสสินค้า','จำนวน','ราคา','ราคารวม','ลบรายการ'];
             let xhttp = new XMLHttpRequest();
             out = document.getElementById("show_listproduct"); 
             text = "";
@@ -79,13 +80,18 @@
                 if (this.readyState == 4 && this.status == 200) {
                     // console.log(this.responseText);
                     data = JSON.parse(this.responseText);
-                   
-                    text = "<table border='1'>";
+                    text = "<table>";
+                    for(i=0;i<lable.length;i++){
+                        text += "<th>"+lable[i]+"</th>";
+                    }
                     for(i=0;i<data.length;i++){
                         text += "<tr>";
-                        for(info in data[i]){
-                            text += "<td>"+data[i][info]+"</td>";
-                        }   
+                        text += "<td>"+data[i].name+"</td>";
+                        text +=  "<td>"+data[i].id+"</td>";
+                        text +=  "<td>"+data[i].amount+"</td>";
+                        text +=  "<td>"+data[i].price+"</td>";
+                        text +=  "<td>"+data[i].price * data[i].amount+"</td>";
+                        text +=  "<td><button>ลบรายการ</button></td>";
                         text += "</tr>";
                     }
                     text += "</table>";
@@ -99,3 +105,32 @@
 </body>
 
 </html>
+
+<!-- 
+<table class="tbl-cart" cellpadding="10" cellspacing="1">
+<tbody>
+<tr>
+<th style="text-align:left;">Name</th>
+<th style="text-align:left;">Code</th>
+<th style="text-align:right;" width="5%">Quantity</th>
+<th style="text-align:right;" width="10%">Price<br>( in $)</th>
+<th style="text-align:right;" width="10%">Total<br>( in $)</th>
+<th style="text-align:center;" width="5%">Remove</th>
+</tr>
+                <tr>
+                <td><img src="product-images/external-hard-drive.jpg" class="cart-item-image">EXP Portable Hard Drive</td>
+                <td>USB02</td>
+                <td style="text-align:right;">1</td>
+                <td style="text-align:right;">800.00</td>
+                <td style="text-align:right;">800.00</td>
+                <td style="text-align:center;"><a href="index.php?action=remove&amp;code=USB02" class="btnRemoveAction"><img src="icon-delete.png" alt="Remove Item"></a></td>
+                </tr>
+                
+<tr>
+<td colspan="2" align="right">Total:</td>
+<td align="right">1</td>
+<td align="right" colspan="2"><strong>800.00</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table> -->

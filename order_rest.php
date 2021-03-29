@@ -11,7 +11,7 @@
         if(isset($_POST['Id']) && isset($_POST['qty'])){
             $qty = $_POST['qty'];
             $pr_Id = $_POST['Id'];
-            insert_order($qty,$debug_mode);
+            //insert_order($qty,$debug_mode);
             $orderId = searchId($debug_mode);
             // echo $qty;
             // echo $pr_Id;
