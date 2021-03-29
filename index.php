@@ -31,16 +31,26 @@
         <div class="text-header">
             <h2>Shopping Cart</h2>
         </div>
-        <div class="inputWithIcon">
-            <input type="text" placeholder="Your name">
-            <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+        <div class="row">
+            <div class="column">
+                <label for="text">เลขที่รายการ</label>
+                <input type="text" id="or_Id" readonly style="text-align: center;">
+            </div>
+            <div class="column">
+                <label for="text">สถานะรายการ</label>
+                <input type="text" id="or_st" readonly style="text-align: center;">
+            </div>
+            <div class="column">
+                <button class="btnsuccess">ชำระเงิน</button>
+            </div>
         </div>
-        <a href="#" id="btnEmpty">Empty Cart</a><br><br>
+        <a href="#" id="btnEmpty" class="btnEmpty">Empty Cart</a>
         <div id="show_listproduct"></div>
         <div class="text-header">
             <h2>Product Catalog</h2>
         </div>
         <div id="show_product"></div>
+
     </div>
 
     <script>
@@ -98,6 +108,8 @@
             lable = ['ชื่อสินค้า', 'รหัสสินค้า', 'จำนวน', 'ราคา', 'ราคารวม', 'ลบรายการ'];
             let xhttp = new XMLHttpRequest();
             out = document.getElementById("show_listproduct");
+            orId = document.getElementById("or_Id");
+            or_st = document.getElementById("or_st");
             text = "";
             total = 0;
             net = 0;
@@ -116,21 +128,34 @@
                         text += "<td align='right'>" + data[i].amount + "</td>";
                         text += "<td>" + data[i].price + "</td>";
                         text += "<td>" + data[i].price * data[i].amount + "</td>";
-                        text += "<td><button>ลบรายการ</button></td>";
+                        text += "<td><button onclick='del_order("+data[i].id+")'>ลบรายการ</button></td>";
                         text += "</tr>";
                         net += data[i].price * data[i].amount;
                         total += parseInt(data[i].amount);
+                        id = data[i].or_id;
+                        status = data[i].status;
+
                     }
                     text += "<td colspan='2' align='right'>Total:</td>";
                     text += "<td align='right'>" + total + "</td>";
                     text += "<td colspan='2' align='right'>" + net + "</td>";
                     text += "<td></td>";
                     text += "</table>";
+                    orId.value = id;
+
                     out.innerHTML = text;
+                    if (status == 0) {
+                        or_st.value = "รายการยังไม่เสร็จสิ้น";
+                    } else {
+                        or_st.value = "รายการเสร็จสิ้น";
+                    }
                 }
             }
             xhttp.open("GET", "order_rest.php?showlist=showlist", true);
             xhttp.send();
+        }
+        function del_order(idx){
+            
         }
     </script>
 </body>

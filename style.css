@@ -10,7 +10,17 @@ table {
     margin: 0 auto;
 }
 
-#btnEmpty {
+.btnEmpty {
+    background-color: #ffffff;
+    border: #d00000 1px solid;
+    padding: 5px 10px;
+    color: #d00000;
+    float: right;
+    text-decoration: none;
+    border-radius: 3px;
+    margin: 10px 0px;
+}
+.btnsuccess {
     background-color: #ffffff;
     border: #d00000 1px solid;
     padding: 5px 10px;

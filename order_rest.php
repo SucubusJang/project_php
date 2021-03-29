@@ -41,9 +41,8 @@
     }
     function show_orderList($orderId,$debug_mode){
         $mydb = new db("root","","shopping", $debug_mode);
-        $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount 
-                                   FROM orders,order_detail,product 
-                                   WHERE product.id = order_detail.id_product && orders.id = order_detail.id_orders && order_detail.id_orders = '{$orderId}'");
+        $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount, orders.id as or_id, orders.status
+                              FROM orders,order_detail,product 
+                              WHERE product.id = order_detail.id_product && orders.id = order_detail.id_orders && order_detail.id_orders = '{$orderId}'");
         return $data;
     }
-?>
