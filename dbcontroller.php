@@ -29,7 +29,6 @@
      
        function query_only($sql){
            $result = $this->db->query($sql);
-           return $result;
        }
 
        function close(){

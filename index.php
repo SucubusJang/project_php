@@ -14,6 +14,7 @@
         <div class="text-header">
             <h2>Shopping Cart</h2>
         </div>
+        <div id="show_listproduct"></div>
         <a href="#" id="btnEmpty">Empty Cart</a>
         <div class="text-header">
             <h2>Product Catalog</h2>
@@ -45,6 +46,7 @@
                     }
                     text += "</div>";
                     out.innerHTML = text;
+                    show_orderList();
                 }
 
             }
@@ -68,6 +70,30 @@
             for(i=0;i<=qtyId;i++){
                 document.getElementById(""+qtyId+"").value = 1;
             }
+        }
+        function show_orderList(){
+            let xhttp = new XMLHttpRequest();
+            out = document.getElementById("show_listproduct"); 
+            text = "";
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // console.log(this.responseText);
+                    data = JSON.parse(this.responseText);
+                   
+                    text = "<table border='1'>";
+                    for(i=0;i<data.length;i++){
+                        text += "<tr>";
+                        for(info in data[i]){
+                            text += "<td>"+data[i][info]+"</td>";
+                        }   
+                        text += "</tr>";
+                    }
+                    text += "</table>";
+                    out.innerHTML = text;
+                }
+            }
+            xhttp.open("GET","order_rest.php?showlist=showlist",true);
+            xhttp.send();
         }
     </script>
 </body>
