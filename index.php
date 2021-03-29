@@ -54,9 +54,9 @@
         function add_product(idx){
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
-
+                
             }
-            xhttp.open("POST","",true);
+            xhttp.open("POST","order_rest.php",true);
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhttp.send();
         }
