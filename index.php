@@ -39,7 +39,7 @@
                         text += "<img src='img/img.png' alt='Girl in a jacket'><br>";
                         text += data[i].name+"<br>";
                         text += "฿ "+data[i].price+" <input type='number' name='' id='' size='4' max='"+data[i].stock+"' min='1' value='1'>";
-                        text += " <button>Add to Cart</button>";
+                        text += " <button onclick='add_product("+data[i].id+")'>Add to Cart</button>";
                         text += "</div>";
                         text += "</div>";
                     }
@@ -50,6 +50,10 @@
             }
             xhttp.open("GET", "product_rest.php?show_pro=show_pro", true);
             xhttp.send();
+        }
+        function add_product(idx){
+            let xhttp = new XMLHttpRequest();
+            
         }
     </script>
 </body>
