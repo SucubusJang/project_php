@@ -17,6 +17,7 @@
             $pr_Id = $_POST['Id'];
             $orderId = searchId($debug_mode);
             if($_POST['orId'] == "" || $orderId[0]['status'] != 0){
+                // echo $orderId[0]['status'];
                 insert_order($qty,$debug_mode);
             }
             $orderId = searchId($debug_mode);
@@ -24,8 +25,7 @@
             updata_orderById($pr_Id,$orderId[0]['Id'],$qty,$debug_mode);
         }else if(isset($_POST['update_order'])){
             $orId  = $_POST['Id'];
-            // update_status($orId,$debug_mode);
-            echo "no";
+            update_status($orId,$debug_mode);
         }
     }else{
         debug_text("Error Unknow this Request" ,$debug_mode);
@@ -35,6 +35,7 @@
         $mydb = new db("root","","shopping", $debug_mode);
         $orderId = searchId($debug_mode);
         $orderId[0]['Id'] = $orderId[0]['Id']+1;
+        echo $orderId[0]['Id'];
         $data = $mydb->query_only("INSERT INTO `orders`(`id`, `date_purchase`, `total`, `status`) VALUES ('{$orderId[0]['Id']}',SYSDATE(),'{$qty}','0')");
         return $data;
     }
@@ -45,7 +46,7 @@
     }
     function searchId($debug_mode){
         $mydb = new db("root","","shopping", $debug_mode);
-        $data = $mydb->query("SELECT `status`,MAX(`id`) as Id FROM `orders` LIMIT 1");
+        $data = $mydb->query("SELECT MAX(id) as Id FROM `orders` WHERE `status` = 1 LIMIT 1");
         return $data;
     }
     function show_orderList($orderId,$debug_mode){

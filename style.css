@@ -1,5 +1,5 @@
 .container {
-    width: 960px;
+    width: 1000px;
     margin: 0 auto;
     height: auto;
     text-align: center;
@@ -44,9 +44,10 @@ div {
 }
 
 .column {
+    margin: 0 auto;
     float: left;
     width: 25%;
-    padding: 0 10px;
+    padding: 10px; 
 }
 
 .card {
@@ -57,7 +58,7 @@ div {
 }
 
 .row {
-    margin: 0 -5px;
+    margin: 10px;
 }
 
 /* Clear floats after the columns */

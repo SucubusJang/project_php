@@ -77,9 +77,9 @@
                     }
                     text += "</div>";
                     out.innerHTML = text;
-                    show_orderList();
-                }
 
+                }
+                show_orderList();
             }
             xhttp.open("GET", "product_rest.php?show_pro=show_pro", true);
             xhttp.send();
@@ -92,7 +92,7 @@
                     qty = document.getElementById("" + qtyId + "").value;
                 }
             }
-            // alert(qty);
+            // alert(idx);
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 console.log(this.responseText);
@@ -103,61 +103,62 @@
             for (i = 0; i <= qtyId; i++) {
                 document.getElementById("" + qtyId + "").value = 1;
             }
+
         }
 
         function show_orderList() {
-            lable = ['ชื่อสินค้า', 'รหัสสินค้า', 'จำนวน', 'ราคา', 'ราคารวม', 'ลบรายการ'];
-            let xhttp = new XMLHttpRequest();
-            out = document.getElementById("show_listproduct");
-            orId = document.getElementById("or_Id");
-            or_st = document.getElementById("or_st");
-            text = "";
-            total = 0;
-            net = 0;
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    // console.log(this.responseText);
-                    data = JSON.parse(this.responseText);
-                    text = "<table border='1' width='100%'>";
-                    for (i = 0; i < lable.length; i++) {
-                        text += "<th>" + lable[i] + "</th>";
-                    }
-                    for (i = 0; i < data.length; i++) {
-                        text += "<tr>";
-                        text += "<td>" + data[i].name + "</td>";
-                        text += "<td>" + data[i].id + "</td>";
-                        text += "<td align='right'>" + data[i].amount + "</td>";
-                        text += "<td>" + data[i].price + "</td>";
-                        text += "<td>" + data[i].price * data[i].amount + "</td>";
-                        text += "<td><button onclick='del_order(" + data[i].id + "," + data[i].or_id + ")'>ลบรายการ</button></td>";
-                        text += "</tr>";
-                        net += data[i].price * data[i].amount;
-                        total += parseInt(data[i].amount);
-                        id = data[i].or_id;
-                        status = data[i].status;
+                lable = ['ชื่อสินค้า', 'รหัสสินค้า', 'จำนวน', 'ราคา', 'ราคารวม', 'ลบรายการ'];
+                let xhttp = new XMLHttpRequest();
+                out = document.getElementById("show_listproduct");
+                orId = document.getElementById("or_Id");
+                or_st = document.getElementById("or_st");
+                text = "";
+                total = 0;
+                net = 0;
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // console.log(this.responseText);
+                        data = JSON.parse(this.responseText);
+                        text = "<table border='1' width='100%'>";
+                        for (i = 0; i < lable.length; i++) {
+                            text += "<th>" + lable[i] + "</th>";
+                        }
+                        for (i = 0; i < data.length; i++) {
+                            text += "<tr>";
+                            text += "<td>" + data[i].name + "</td>";
+                            text += "<td>" + data[i].id + "</td>";
+                            text += "<td align='right'>" + data[i].amount + "</td>";
+                            text += "<td>" + data[i].price + "</td>";
+                            text += "<td>" + data[i].price * data[i].amount + "</td>";
+                            text += "<td><button onclick='del_order(" + data[i].id + "," + data[i].or_id + ")'>ลบรายการ</button></td>";
+                            text += "</tr>";
+                            net += data[i].price * data[i].amount;
+                            total += parseInt(data[i].amount);
+                            id = data[i].or_id;
+                            status = data[i].status;
 
-                    }
-                    text += "<td colspan='2' align='right'>Total:</td>";
-                    text += "<td align='right'>" + total + "</td>";
-                    text += "<td colspan='2' align='right'>" + net + "</td>";
-                    text += "<td></td>";
-                    text += "</table>";
-                    orId.value = id;
-                    out.innerHTML = text;
+                        }
+                        text += "<td colspan='2' align='right'>Total:</td>";
+                        text += "<td align='right'>" + total + "</td>";
+                        text += "<td colspan='2' align='right'>" + net + "</td>";
+                        text += "<td></td>";
+                        text += "</table>";
+                        orId.value = id;
+                        out.innerHTML = text;
 
-                    pay = document.getElementById("pay");
-                    orId = document.getElementById("or_Id").value;
-                    pay.innerHTML = "<button class='btnsuccess' onclick='payment(" + orId + ")'>ชำระเงิน</button>";
+                        pay = document.getElementById("pay");
+                        orId = document.getElementById("or_Id").value;
+                        pay.innerHTML = "<button class='btnsuccess' onclick='payment(" + orId + ")'>ชำระเงิน</button>";
 
-                    if (status == 0) {
-                        or_st.value = "รายการยังไม่เสร็จสิ้น";
-                    } else {
-                        or_st.value = "รายการเสร็จสิ้น";
+                        if (status == 0) {
+                            or_st.value = "รายการยังไม่เสร็จสิ้น";
+                        } else {
+                            or_st.value = "รายการเสร็จสิ้น";
+                        }
                     }
                 }
-            }
-            xhttp.open("GET", "order_rest.php?showlist=showlist", true);
-            xhttp.send();
+                xhttp.open("GET", "order_rest.php?showlist=showlist", true);
+                xhttp.send();
         }
 
         function del_order(idx, orId) {
@@ -179,7 +180,14 @@
             }
             xhttp.open("POST", "order_rest.php", true);
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhttp.send("Id="+idx+"&update_order=update_order");
+            xhttp.send("Id=" + idx + "&update_order=update_order");
+            clear();
+        }
+
+        function clear() {
+            document.getElementById("show_listproduct").value = "";
+            document.getElementById("or_Id").value = "";
+            document.getElementById("or_st").value = "";
         }
     </script>
 </body>
