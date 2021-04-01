@@ -22,7 +22,12 @@
     </style>
 </head>
 
-<body onload="loadContent()">
+<body onload="loadContent()" style="margin: 0px;">
+    <ul>
+        <li><a class="active" href="index.php">Home</a></li>
+        <li><a href="product.php">product</a></li>
+        <li><a href="order.php">orderlist</a></li>
+    </ul>
     <div class="container">
         <h2>จัดการสินค้า</h2>
         <button onclick="show_add()" class="btn btn-success" style="margin-bottom: 10px;">เพิ่มสินค้า</button>
@@ -102,7 +107,7 @@
             name_pro.value = null;
             price_pro.value = null;
             stock_pro.value = null;
-            // window.location.href = "product.php";
+            window.location.href = "product.php";
         }
         function edit_pro(idx) {
            // alert(idx);

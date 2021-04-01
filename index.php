@@ -26,7 +26,12 @@
     }
 </style>
 
-<body onload="show_product()">
+<body onload="show_product()" style="margin: 0px;">
+    <ul>
+        <li><a class="active" href="index.php">Home</a></li>
+        <li><a href="product.php">product</a></li>
+        <li><a href="order.php">orderlist</a></li>
+    </ul>
     <div class="container">
         <div class="text-header">
             <h2>Shopping Cart</h2>
@@ -41,7 +46,7 @@
                 <input type="text" id="or_st" readonly style="text-align: center;">
             </div>
             <div class="column">
-                
+
             </div>
         </div>
         <div id="show_listproduct"></div>
@@ -50,7 +55,7 @@
             <h2>Product Catalog</h2>
         </div>
         <div id="show_product"></div>
-        
+
     </div>
 
     <script>
@@ -103,6 +108,7 @@
             for (i = 0; i <= qtyId; i++) {
                 document.getElementById("" + qtyId + "").value = 1;
             }
+            show_product();
 
         }
 
@@ -159,6 +165,7 @@
             }
             xhttp.open("GET", "order_rest.php?showlist=showlist", true);
             xhttp.send();
+            
         }
 
         function del_order(idx, orId) {
@@ -181,6 +188,7 @@
             xhttp.open("POST", "order_rest.php", true);
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhttp.send("Id=" + idx + "&update_order=update_order");
+            window.location.href = "index.php";
         }
     </script>
 </body>
