@@ -41,15 +41,16 @@
                 <input type="text" id="or_st" readonly style="text-align: center;">
             </div>
             <div class="column">
-                <div id="pay"></div>
+                
             </div>
         </div>
         <div id="show_listproduct"></div>
+        <div id="pay" style="margin-top: 10px;"></div>
         <div class="text-header">
             <h2>Product Catalog</h2>
         </div>
         <div id="show_product"></div>
-
+        
     </div>
 
     <script>
@@ -70,7 +71,7 @@
                         text += "<img src='img/img.png' alt='Girl in a jacket'><br>";
                         text += data[i].name + "<br>";
                         text += "฿ " + data[i].price + " <input type='number' name='' id='" + i + "' size='4' max='" + data[i].stock + "' min='1' value='1'>";
-                        text += " <button onclick='add_product(" + data[i].id + "," + i + ")'>Add to Cart</button>";
+                        text += " <button class='btn btn-success'onclick='add_product(" + data[i].id + "," + i + ")'>Add to Cart</button>";
                         text += "</div>";
                         text += "</div>";
                     }
@@ -147,7 +148,7 @@
 
                     pay = document.getElementById("pay");
                     orId = document.getElementById("or_Id").value;
-                    pay.innerHTML = "<button class='btnsuccess' onclick='payment(" + orId + ")'>ชำระเงิน</button>";
+                    pay.innerHTML = "<button class='btn btn-success' onclick='payment(" + orId + ")'>ชำระเงิน</button>";
 
                     if (status == 0) {
                         or_st.value = "รายการยังไม่เสร็จสิ้น";

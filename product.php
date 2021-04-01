@@ -25,7 +25,7 @@
 <body onload="loadContent()">
     <div class="container">
         <h2>จัดการสินค้า</h2>
-        <button onclick="show_add()" class="btn btn-success">เพิ่มสินค้า</button>
+        <button onclick="show_add()" class="btn btn-success" style="margin-bottom: 10px;">เพิ่มสินค้า</button>
         <Table>
             <thead>
                 <th>รหัสสินค้า</th>
@@ -64,7 +64,7 @@
                 for (info in data[i]) {
                     text += "<td>" + data[i][info] + "</td>";
                 }
-                text += "<td><button onclick='edit_pro(" + data[i].id + ")'>แก้ไข</button> <button onclick='del_pro(" + data[i].id + ")'>ลบสินค้า</button></td>";
+                text += "<td><button class='btn btn-warring' onclick='edit_pro(" + data[i].id + ")'>แก้ไข</button> <button class='btn btnEmpty' onclick='del_pro(" + data[i].id + ")'>ลบสินค้า</button></td>";
                 text += "</tr>\n";
             }
             out.innerHTML = text;
@@ -80,7 +80,7 @@
             text += "<td><input type='number' name='' id='price'></td></tr>";
             text += "<tr><td><label>จำนวนสินค้า</label></td>";
             text += "<td><input type='number' name='' id='stock'></td></tr>";
-            text += "<tr><td colspan='2'><button onclick='add_pro()'>เพิ่มสินค้า</button></td></tr>";
+            text += "<tr><td colspan='2'><button class='btn btn-success' onclick='add_pro()'>เพิ่มสินค้า</button></td></tr>";
             text += "</table>";
             out.innerHTML = text;
         }
@@ -127,7 +127,7 @@
                         }
                         text += "</tr>";
                     }
-                    text += "<tr><td colspan='2'><button onclick='edit_data(" + idx + ")'>Edit</button></td></tr>";
+                    text += "<tr><td colspan='2'><button class='btn btn-warring' onclick='edit_data(" + idx + ")'>แก้ไข</button></td></tr>";
                     out.innerHTML = text + "</table>";
                 }
             }
