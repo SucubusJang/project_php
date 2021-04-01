@@ -16,6 +16,7 @@
     }else if($_SERVER['REQUEST_METHOD'] == "POST"){
         debug_text("For POST Method" ,$debug_mode); 
         if(isset($_POST['name_pro'])){
+            echo "no";
             $name_pro = $_POST['name_pro'];
             $price_pro = $_POST['price_pro'];
             $stock_pro = $_POST['stock_pro'];

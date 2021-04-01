@@ -56,7 +56,7 @@
 
         function create_Table(data) {
             out = document.getElementById("show_product");
-            // console.log(data.length);
+            //console.log(data.length);
             text = "";
             for (i = 0; i < data.length; i++) {
                 text += "<tr>";
@@ -101,7 +101,7 @@
             name_pro.value = null;
             price_pro.value = null;
             stock_pro.value = null;
-            window.location.href = "product.php";
+            // window.location.href = "product.php";
         }
         function edit_pro(idx) {
            // alert(idx);
