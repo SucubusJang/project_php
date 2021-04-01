@@ -9,23 +9,49 @@ table {
     text-align: center;
     margin: 0 auto;
 }
-
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #6c757d;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: initial;
+    border: 1px solid transparent;
+    padding: .45rem .9rem;
+    font-size: .9rem;
+    line-height: 1.5;
+    border-radius: .15rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 .btnEmpty {
     background-color: #ffffff;
     border: #d00000 1px solid;
-    padding: 5px 10px;
+    padding: 5px 10px; 
     color: #d00000;
-    float: right;
+    /* float: right; */
+    text-decoration: none;
+    border-radius: 3px;
+}
+.btn-success {
+    background-color: #ffffff;
+    border: #0acf97 1px solid;
+    padding: 5px 10px;
+    color: #0acf97;
+    /* float: right; */
     text-decoration: none;
     border-radius: 3px;
     margin: 10px 0px;
 }
-.btnsuccess {
+.btn-warring {
     background-color: #ffffff;
-    border: #d00000 1px solid;
+    border: #ffbc00 1px solid;
     padding: 5px 10px;
-    color: #d00000;
-    float: right;
+    color: #ffbc00;
+    /* float: right; */
     text-decoration: none;
     border-radius: 3px;
     margin: 10px 0px;
@@ -92,3 +118,22 @@ input[type="text"] {
   .inputWithIcon input[type="text"] {
     padding-left: 40px;
   }
+  body {
+    font: normal medium/1.4 sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    padding: 0.25rem;
+    text-align: left;
+    border: 1px solid #ccc;
+}
+
+tbody tr:nth-child(odd) {
+    background: #eee;
+}

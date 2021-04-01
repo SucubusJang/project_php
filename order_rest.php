@@ -12,26 +12,13 @@
             del_orderDetail($Id,$orId,$debug_mode);
         }
     }else if($_SERVER['REQUEST_METHOD'] == "POST"){
-        // if(isset($_POST['Id']) && isset($_POST['qty'])){
-        //     $qty = $_POST['qty'];
-        //     $pr_Id = $_POST['Id'];
-
-        //     // $orderId = searchId($debug_mode);
-        //     // if($_POST['orId'] == "" || $orderId[0]['status'] != 0){
-        //     //     // echo $orderId[0]['status'];
-        //     //     insert_order($qty,$debug_mode);
-        //     // }
-        //     // $orderId = searchId($debug_mode);
-        //     // insert_orderDetail($pr_Id,$orderId[0]['Id'],$qty,$debug_mode);
-        //     // updata_orderById($pr_Id,$orderId[0]['Id'],$qty,$debug_mode);
-        // }else if(isset($_POST['update_order'])){
-        //     $orId  = $_POST['Id'];
-        //     update_status($orId,$debug_mode);
-        // }
         if(isset($_POST['Id']) && isset($_POST['qty'])){
             $qty = $_POST['qty'];
             $pr_Id = $_POST['Id'];
             openbill($debug_mode);
+        }else if(isset($_POST['update_order'])){
+            $Id = $_POST['Id'];
+            update_status($Id,$debug_mode);
         }
     }else{
         debug_text("Error Unknow this Request" ,$debug_mode);
@@ -39,11 +26,6 @@
     }
     function openbill($debug_mode){
         $mydb = new db("root","","shopping", $debug_mode);
-        // $sql = ["firstbill" => "SELECT COUNT(`id`) as Id FROM `orders`",
-        //         "openbill"  => "INSERT INTO `orders`(`id`, `date_purchase`, `total`, `status`) 
-        //                         VALUES ($Id,SYSDATE(),{$_POST['qty']},0)",
-        //         "last_id"   => "SELECT MAX(id) as Id FROM `orders` ORDER BY `id` DESC LIMIT 1"
-        //     ];
         $firstbill = $mydb->query("SELECT COUNT(`id`) as Id FROM `orders`");
         $current_bill = $mydb->query("SELECT `id`,`status` FROM `orders` ORDER BY `id` DESC LIMIT 1");
         if($firstbill[0]['Id'] == 0 || $current_bill[0]['status'] == 1){
@@ -63,10 +45,6 @@
             }
         }
     }
-
-
-
-
     function insert_order($qty,$debug_mode){
         $mydb = new db("root","","shopping", $debug_mode);
         $orderId = searchId($debug_mode);
@@ -89,7 +67,7 @@
         $mydb = new db("root","","shopping", $debug_mode);
         $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount, orders.id as or_id, orders.status
                               FROM orders,order_detail,product 
-                              WHERE product.id = order_detail.id_product && orders.id = order_detail.id_orders && order_detail.id_orders = '{$orderId}'");
+                              WHERE product.id = order_detail.id_product && orders.id = order_detail.id_orders && orders.status = 0");
         return $data;
     }
     function del_orderDetail($Id,$orId,$debug_mode){
