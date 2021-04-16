@@ -29,8 +29,10 @@
         <li><a href="order.php">orderlist</a></li>
     </ul>
     <div class="container">
-        <h2>จัดการสินค้า</h2>
-        <button onclick="show_add()" class="btn btn-success" style="margin-bottom: 10px;">เพิ่มสินค้า</button>
+        <div class="text-header">
+            <h2>Manage Product</h2>
+        </div>
+        <button onclick="show_add()" class="btn btn-success" style="margin-bottom: 10px; margin-top: 10px">เพิ่มสินค้า</button>
         <Table>
             <thead>
                 <th>รหัสสินค้า</th>
@@ -109,11 +111,12 @@
             stock_pro.value = null;
             window.location.href = "product.php";
         }
+
         function edit_pro(idx) {
-           // alert(idx);
+            // alert(idx);
             label = ['ชื่อสินค้า', 'ราคา', 'จำนวนสินค้า'];
             Ids = ['name', 'price', 'stock'];
-            type = ['text','number','number'];
+            type = ['text', 'number', 'number'];
             out = document.getElementById("out");
             let xhttp = new XMLHttpRequest();
             text = "";
@@ -121,13 +124,13 @@
             xhttp.onreadystatechange = function() {
                 // console.log(this.readyState + ", ", this.status);
                 if (this.readyState == 4 && this.status == 200) {
-                     console.log(this.responseText);
+                    console.log(this.responseText);
                     data = JSON.parse(this.responseText);
                     text = "<table border='1'>";
                     for (i = 0; i < data.length; i++) {
                         text += "<tr>";
                         for (info in data[i]) {
-                            text += "<tr><td>" + label[j] + "</td><td><input type='"+type[j]+"' name='' id='" + Ids[j] + "' value='" + data[i][info] + "'></td></tr>";
+                            text += "<tr><td>" + label[j] + "</td><td><input type='" + type[j] + "' name='' id='" + Ids[j] + "' value='" + data[i][info] + "'></td></tr>";
                             j++;
                         }
                         text += "</tr>";
@@ -160,7 +163,7 @@
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                     console.log(this.responseText);
+                    console.log(this.responseText);
                 }
             }
             xhttp.open("GET", "product_rest.php?del_Id=" + idx + "", true);

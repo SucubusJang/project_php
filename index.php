@@ -177,6 +177,7 @@
             }
             xhttp.open("GET", "order_rest.php?Id=" + idx + "&del_order=del_order&orId=" + orId + "", true);
             xhttp.send();
+            window.location.href = "index.php";
         }
 
         function payment(idx) {
