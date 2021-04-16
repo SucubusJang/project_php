@@ -9,6 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     } else if (isset($_GET['del_order'])) {
         $Id = $_GET['Id'];
         $orId = $_GET['orId'];
+        $qty = $_GET['qty'];
+        updata_orderById($orId, $qty, $debug_mode);
         del_orderDetail($Id, $orId, $debug_mode);
     } else if (isset($_GET['showOrder'])) {
         echo json_encode(show_order($debug_mode));
@@ -42,6 +44,7 @@ function openbill($debug_mode)
             $check_pro = $mydb->query("SELECT COUNT(`id_product`) as Counts FROM `order_detail` WHERE `id_product` = '{$_POST['Id']}' AND `id_orders` = '{$current_bill[0]['id']}'");
             if ($check_pro[0]['Counts'] == 0) {
                 $mydb->query_only("INSERT INTO `order_detail`(`id_product`, `id_orders`, `amount`) VALUES ('{$_POST['Id']}','{$current_bill[0]['id']}','{$_POST['qty']}')");
+                $mydb->query_only("UPDATE `orders` SET `total`= `total` + '{$_POST['qty']}' WHERE `id` = '{$current_bill[0]['id']}'");
             } else {
                 $mydb->query_only("UPDATE `order_detail` SET `amount`= `amount` + '{$_POST['qty']}' WHERE `id_orders` = '{$current_bill[0]['id']}' and `id_product` = '{$_POST['Id']}'");
                 $mydb->query_only("UPDATE `orders` SET `total`= `total` + '{$_POST['qty']}' WHERE `id` = '{$current_bill[0]['id']}'");
@@ -58,10 +61,12 @@ function insert_order($qty, $debug_mode)
     $data = $mydb->query_only("INSERT INTO `orders`(`id`, `date_purchase`, `total`, `status`) VALUES ('{$orderId[0]['Id']}',SYSDATE(),'{$qty}','0')");
     return $data;
 }
-function insert_orderDetail($pr_Id, $orderId, $qty, $debug_mode)
+function show_list($orderId, $debug_mode)
 {
     $mydb = new db("root", "", "shopping", $debug_mode);
-    $data = $mydb->query_only("INSERT INTO `order_detail`(`id_product`, `id_orders`, `amount`) VALUES ('{$pr_Id}','{$orderId}','{$qty}')");
+    $data = $mydb->query_only("SELECT product.id, product.name, product.price, order_detail.amount, orders.id as or_id, orders.status, orders.total 
+                                FROM orders,order_detail,product 
+                                WHERE product.id = order_detail.id_product && orders.id = order_detail.id_orders && orders.id = '{$orderId}'");
     return $data;
 }
 function searchId($debug_mode)
@@ -73,21 +78,23 @@ function searchId($debug_mode)
 function show_orderList($orderId, $debug_mode)
 {
     $mydb = new db("root", "", "shopping", $debug_mode);
-    $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount, orders.id as or_id, orders.status
-                              FROM orders,order_detail,product 
-                              WHERE product.id = order_detail.id_product && orders.id = order_detail.id_orders && orders.status = 0");
+    $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount, orders.id as or_id, orders.status, orders.total 
+                            FROM orders,order_detail,product 
+                            WHERE product.id = order_detail.id_product && orders.id = order_detail.id_orders && orders.status = 0");
     return $data;
 }
+
 function del_orderDetail($Id, $orId, $debug_mode)
 {
     $mydb = new db("root", "", "shopping", $debug_mode);
     $data = $mydb->query_only("DELETE FROM `order_detail` WHERE `id_product` = '{$Id}' and `id_orders` = '{$orId}'");
     return $data;
 }
-function updata_orderById($pr_Id, $orderId, $qty, $debug_mode)
+
+function updata_orderById($orderId, $qty, $debug_mode)
 {
     $mydb = new db("root", "", "shopping", $debug_mode);
-    $data = $mydb->query_only("UPDATE `order_detail` SET `amount`= `amount` + '{$qty}' WHERE `id_orders` = '{$orderId}' and `id_product` = '{$pr_Id}'");
+    $data = $mydb->query_only("UPDATE `orders` SET `total`= `total` - '{$qty}' WHERE `id` = '{$orderId}'");
     return $data;
 }
 

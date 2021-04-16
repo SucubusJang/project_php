@@ -57,14 +57,26 @@
                 text += "<td>" + data[i].total + "</td>";
                 if(data[i].status == 1){
                      text += "<td> รายการเสร็จสิ้น </td>";
-                     text += "<td><button class='btn btn-success' onclick='edit_pro(" + data[i].id + ")'>แสดงรายการ</button></td>";
+                     text += "<td><button class='btn btn-success' onclick='show_list(" + data[i].id + ")'>แสดงรายการ</button></td>";
                 }else{
                     text += "<td> กำลังดำเนินการ </td>";
-                    text += "<td><button class='btn btnEmpty' onclick='edit_pro(" + data[i].id + " disabled)'>แสดงรายการ</button></td>";
+                    text += "<td><button class='btn btnEmpty' onclick='show_list(" + data[i].id + " disabled)'>แสดงรายการ</button></td>";
                 }
                 text += "</tr>\n";
             }
             out.innerHTML = text;
+        }
+        function show_list(){
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                // console.log(this.responseText);
+                if (this.readyState == 4 && this.status) {
+                    data = JSON.parse(this.responseText);
+                    create_Table(data);
+                }
+            }
+            xhttp.open("GET", "order_rest.php?showOrder", true);
+            xhttp.send();
         }
     </script>
 </body>

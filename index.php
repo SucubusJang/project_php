@@ -123,11 +123,12 @@
             net = 0;
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    // console.log(this.responseText);
+                    console.log(this.responseText);
                     data = JSON.parse(this.responseText);
+                    // alert(data.length);
                     text = "<table border='1' width='100%'>";
-                    for (i = 0; i < lable.length; i++) {
-                        text += "<th>" + lable[i] + "</th>";
+                    for (j = 0; j < lable.length; j++) {
+                        text += "<th>" + lable[j] + "</th>";
                     }
                     for (i = 0; i < data.length; i++) {
                         text += "<tr>";
@@ -136,17 +137,16 @@
                         text += "<td align='right'>" + data[i].amount + "</td>";
                         text += "<td>" + data[i].price + "</td>";
                         text += "<td>" + data[i].price * data[i].amount + "</td>";
-                        text += "<td><button class='btnEmpty' onclick='del_order(" + data[i].id + "," + data[i].or_id + ")'>ลบรายการ</button></td>";
+                        text += "<td><button class='btnEmpty' onclick='del_order(" + data[i].id + "," + data[i].or_id + "," + data[i].amount + ")'>ลบรายการ</button></td>";
                         text += "</tr>";
                         net += data[i].price * data[i].amount;
-                        total += parseInt(data[i].amount);
+                        total = data[i].total;
                         id = data[i].or_id;
                         status = data[i].status;
-
                     }
                     text += "<td colspan='2' align='right'>Total:</td>";
                     text += "<td align='right'>" + total + "</td>";
-                    text += "<td colspan='2' align='right'>" + net + "</td>";
+                    text += "<td colspan='2' align='right'></td>";
                     text += "<td></td>";
                     text += "</table>";
                     orId.value = id;
@@ -165,17 +165,17 @@
             }
             xhttp.open("GET", "order_rest.php?showlist=showlist", true);
             xhttp.send();
-            
+
         }
 
-        function del_order(idx, orId) {
+        function del_order(idx, orId, qty) {
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     console.log(this.responseText);
                 }
             }
-            xhttp.open("GET", "order_rest.php?Id=" + idx + "&del_order=del_order&orId=" + orId + "", true);
+            xhttp.open("GET", "order_rest.php?Id=" + idx + "&del_order=del_order&orId=" + orId + "&qty=" + qty + "", true);
             xhttp.send();
             window.location.href = "index.php";
         }
