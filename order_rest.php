@@ -14,6 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         del_orderDetail($Id, $orId, $debug_mode);
     } else if (isset($_GET['showOrder'])) {
         echo json_encode(show_order($debug_mode));
+    } else if(isset($_GET['list'])){
+        $orId = $_GET['idx'];
+        echo json_encode(show_list($orId,$debug_mode));
     }
 } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['Id']) && isset($_POST['qty'])) {
@@ -64,7 +67,7 @@ function insert_order($qty, $debug_mode)
 function show_list($orderId, $debug_mode)
 {
     $mydb = new db("root", "", "shopping", $debug_mode);
-    $data = $mydb->query_only("SELECT product.id, product.name, product.price, order_detail.amount, orders.id as or_id, orders.status, orders.total 
+    $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount, orders.id as or_id, orders.status, orders.total 
                                 FROM orders,order_detail,product 
                                 WHERE product.id = order_detail.id_product && orders.id = order_detail.id_orders && orders.id = '{$orderId}'");
     return $data;

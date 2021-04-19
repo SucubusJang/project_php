@@ -24,6 +24,7 @@
         text-indent: 70px;
         transition: all .3s ease-in-out;
     }
+    
 </style>
 
 <body onload="show_product()" style="margin: 0px;">
@@ -149,10 +150,11 @@
                     text += "<td colspan='2' align='right'></td>";
                     text += "<td></td>";
                     text += "</table>";
-                    orId.value = id;
+                    
+                }
+                orId.value = id;
                     out.innerHTML = text;
-
-                    pay = document.getElementById("pay");
+                pay = document.getElementById("pay");
                     orId = document.getElementById("or_Id").value;
                     pay.innerHTML = "<button class='btn btn-success' onclick='payment(" + orId + ")'>ชำระเงิน</button>";
 
@@ -161,7 +163,6 @@
                     } else {
                         or_st.value = "รายการเสร็จสิ้น";
                     }
-                }
             }
             xhttp.open("GET", "order_rest.php?showlist=showlist", true);
             xhttp.send();

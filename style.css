@@ -151,6 +151,7 @@ table {
 
 th,
 td {
+    height: 35px;
     padding: 0.25rem;
     text-align: left;
     border: 1px solid #ccc;
