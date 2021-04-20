@@ -3,11 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2021 at 11:05 PM
+-- Generation Time: Apr 20, 2021 at 06:15 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -22,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `shopping`
 --
-CREATE DATABASE IF NOT EXISTS `shopping` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `shopping`;
 
 -- --------------------------------------------------------
 
@@ -31,7 +28,6 @@ USE `shopping`;
 -- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `date_purchase` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -40,21 +36,17 @@ CREATE TABLE `orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `orders`
---
-
-TRUNCATE TABLE `orders`;
---
 -- Dumping data for table `orders`
 --
 
-INSERT DELAYED IGNORE INTO `orders` (`id`, `date_purchase`, `total`, `status`) VALUES
+INSERT INTO `orders` (`id`, `date_purchase`, `total`, `status`) VALUES
 (1, '2021-03-29 16:01:38', 1, 1),
 (2, '2021-03-29 16:03:41', 1, 1),
 (3, '2021-03-30 08:34:35', 1, 1),
 (4, '2021-04-16 14:13:07', 3, 1),
 (5, '2021-04-16 15:24:27', 10, 1),
-(6, '2021-04-16 15:27:32', 2, 1);
+(6, '2021-04-16 15:27:32', 2, 1),
+(7, '2021-04-19 16:56:56', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -62,7 +54,6 @@ INSERT DELAYED IGNORE INTO `orders` (`id`, `date_purchase`, `total`, `status`) V
 -- Table structure for table `order_detail`
 --
 
-DROP TABLE IF EXISTS `order_detail`;
 CREATE TABLE `order_detail` (
   `id_product` int(11) NOT NULL,
   `id_orders` int(11) NOT NULL,
@@ -70,21 +61,17 @@ CREATE TABLE `order_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `order_detail`
---
-
-TRUNCATE TABLE `order_detail`;
---
 -- Dumping data for table `order_detail`
 --
 
-INSERT DELAYED IGNORE INTO `order_detail` (`id_product`, `id_orders`, `amount`) VALUES
+INSERT INTO `order_detail` (`id_product`, `id_orders`, `amount`) VALUES
 (1, 1, 5),
 (1, 2, 6),
 (1, 3, 1),
 (1, 4, 2),
 (1, 5, 3),
 (1, 6, 1),
+(1, 7, 1),
 (2, 2, 4),
 (2, 4, 1),
 (2, 5, 3),
@@ -99,7 +86,6 @@ INSERT DELAYED IGNORE INTO `order_detail` (`id_product`, `id_orders`, `amount`) 
 -- Table structure for table `product`
 --
 
-DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -108,15 +94,10 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `product`
---
-
-TRUNCATE TABLE `product`;
---
 -- Dumping data for table `product`
 --
 
-INSERT DELAYED IGNORE INTO `product` (`id`, `name`, `price`, `stock`) VALUES
+INSERT INTO `product` (`id`, `name`, `price`, `stock`) VALUES
 (1, 'ปากกา', 10, 10),
 (2, 'ยางลบ', 10, 10),
 (3, 'เกม', 100, 10),
@@ -166,7 +147,6 @@ ALTER TABLE `product`
 ALTER TABLE `order_detail`
   ADD CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `product` (`id`),
   ADD CONSTRAINT `order_detail_ibfk_2` FOREIGN KEY (`id_orders`) REFERENCES `orders` (`id`);
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
