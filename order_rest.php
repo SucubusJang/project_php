@@ -75,7 +75,7 @@ function show_list($orderId, $debug_mode)
 function searchId($debug_mode)
 {
     $mydb = new db("root", "", "shopping", $debug_mode);
-    $data = $mydb->query("SELECT MAX(id) as Id FROM `orders` WHERE `status` = 1 LIMIT 1");
+    $data = $mydb->query("SELECT MAX(id) as Id FROM `orders` WHERE `status` = 0 LIMIT 1");
     return $data;
 }
 function show_orderList($orderId, $debug_mode)
