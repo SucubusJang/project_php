@@ -1,11 +1,12 @@
-<?php include_once("head.php");?>
+<?php include_once("head.php"); ?>
+
 <body onload="show_product()" style="margin: 0px; font-family: 'Kanit', sans-serif;">
     <?php
     include_once("nav.php");
     ?>
     <div class="container">
-        <div class="text-header">
-            <h1>Shopping Cart</h1>
+        <div class="card-header" style="height: 70px; background-color: black; margin-top: 20px; margin-bottom: 10px; border-radius: 0px 100px 100px 0px;">
+            <h1 style="color: white; font-weight: bold;">Shopping Cart</h1>
         </div>
         <div class="row g-3">
             <div class="col-md-3">
@@ -17,12 +18,12 @@
                 <input type="text" class="form-control" id="or_st" placeholder="สถานะรายการ" readonly>
             </div>
         </div>
-    </div>
-    <div class="container">
         <div id="show_listproduct"></div>
         <div id="pay" style="margin-top: 10px;"></div>
-        <div class="text-header">
-            <h2>Product Catalog</h2>
+    </div>
+    <div class="container">
+        <div class="card-header" style="height: 70px; background-color:black; margin-top: 20px; margin-bottom: 10px; border-radius: 0px 100px 100px 0px;">
+            <h1 style="color: white; font-weight: bold;">Product Catacories</h1>
         </div>
         <div id="show_product"></div>
     </div>
@@ -69,13 +70,14 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     alert(`เพิ่มสินค้าสำเร็จ`);
+                    show_product();
                 }
             }
             xhttp.open("POST", "order_rest.php", true);
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhttp.send("Id=" + idx + "&qty=" + qty + "&orId=" + orId);
             qty.value = 1;
-            show_product();
+
         }
 
         function show_orderList() {
@@ -126,7 +128,7 @@
                 out.innerHTML = text;
                 pay = document.getElementById("pay");
                 pay.innerHTML = "<div style='text-align: center'><button class='btn btn-success' onclick='payment(" + orId.value + ")'><i class='fas fa-coins'></i> ชำระเงิน</button></div>";
-                
+
             }
             xhttp.open("GET", "order_rest.php?showlist=showlist", true);
             xhttp.send();
@@ -134,30 +136,32 @@
         }
 
         function del_order(idx, orId, qty) {
+
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    // alert("ลบรายการสำเร็จ");
-                    // console.log(this.responseText);
+                    alert("ลบรายการสำเร็จ");
+                    show_product();
                 }
             }
             xhttp.open("GET", "order_rest.php?Id=" + idx + "&del_order=del_order&orId=" + orId + "&qty=" + qty + "", true);
             xhttp.send();
-            show_orderList();
+
         }
 
         function payment(idx) {
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                      alert("ชำระเงินสำเร็จ");
-                // console.log(this.responseText);
+                    alert("ชำระเงินสำเร็จ");
+                    show_orderList();
+                } else {
+                    alert("ชำระเงินไม่สำเร็จ");
                 }
             }
             xhttp.open("POST", "order_rest.php", true);
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhttp.send("Id=" + idx + "&update_order=update_order");
-
             out = document.getElementById("show_listproduct");
             orId = document.getElementById("or_Id");
             or_st = document.getElementById("or_st");

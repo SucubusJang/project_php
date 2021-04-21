@@ -49,7 +49,7 @@
                     text += "<td><button class='btn btn-success' onclick='show_list(" + data[i].id + ")'>แสดงรายการ</button></td>";
                 } else {
                     text += "<td> กำลังดำเนินการ </td>";
-                    text += "<td><button class='btn btnEmpty' onclick='show_list(" + data[i].id + " disabled)'>แสดงรายการ</button></td>";
+                    text += "<td><button class='btn btn-danger' onclick='show_list(" + data[i].id + " disabled)'>แสดงรายการ</button></td>";
                 }
                 text += "</tr>\n";
             }
