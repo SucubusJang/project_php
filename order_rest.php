@@ -42,7 +42,6 @@ function openbill($debug_mode)
         $mydb->query_only("INSERT INTO `orders`(`id`, `date_purchase`, `total`, `status`) VALUES ($Id,SYSDATE(),'{$_POST['qty']}',0)");
         $mydb->query_only("INSERT INTO `order_detail`(`id_product`, `id_orders`, `amount`) VALUES ('{$_POST['Id']}','{$Id}','{$_POST['qty']}')");
     } else {
-        // echo $current_bill[0]['id'];
         if ($current_bill[0]['status'] == 0) {
             $check_pro = $mydb->query("SELECT COUNT(`id_product`) as Counts FROM `order_detail` WHERE `id_product` = '{$_POST['Id']}' AND `id_orders` = '{$current_bill[0]['id']}'");
             if ($check_pro[0]['Counts'] == 0) {

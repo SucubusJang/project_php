@@ -1,26 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
-
-<body onload="loadContent()" style="margin: 0px;">
-    <ul>
-        <li><a class="active" href="index.php">Home</a></li>
-        <li><a href="product.php">product</a></li>
-        <li><a href="order.php">orderlist</a></li>
-    </ul>
+<?php include_once("head.php"); ?>
+<body onload="loadContent()" style="margin: 0px; font-family: 'Kanit', sans-serif;">
+    <?php
+    include_once("nav.php");
+    ?>
     <div class="container">
         <div class="text-header">
             <h2>Manage Order</h2>
         </div>
-        <Table style="margin-top: 20px;">
-            <thead>
+        <table class="table table-striped" style="margin-top: 20px">
+            <thead class="table-dark">
                 <th>รหัสรายการ</th>
                 <th>วันที่ขาย</th>
                 <th>จำนวนที่ขาย</th>
@@ -84,10 +72,12 @@
                     text += `<div class="text-header" style="margin-bottom: 20px">
                                 <h2>Order Detail</h2>
                             </div>`;
-                    text += "<table border='1' width='100%'>";
+                    text += "<table class='table table-striped' style='margin-top: 20px'>";
+                    text += "<thead class='table-dark'>";
                     for (j = 0; j < lable.length; j++) {
                         text += "<th>" + lable[j] + "</th>";
                     }
+                    text += "</thead>";
                     for (i = 0; i < data.length; i++) {
                         text += "<tr>";
                         text += "<td>" + data[i].name + "</td>";
