@@ -3,9 +3,8 @@ include_once("dbcontroller.php");
 include_once("util.php");
 $debug_mode = false;
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
-    if (isset($_GET['showlist'])) {
-        $orderId = searchId($debug_mode);
-        echo json_encode(show_orderList($orderId[0]['Id'], $debug_mode));
+    if (isset($_GET['showlist'])) { // แสดงรายการ
+        echo json_encode(show_orderList($debug_mode));
     } else if (isset($_GET['del_order'])) {
         $Id = $_GET['Id'];
         $orId = $_GET['orId'];
@@ -81,7 +80,7 @@ function searchId($debug_mode)
     $data = $mydb->query("SELECT MAX(id) as Id FROM `orders` WHERE `status` = 0 LIMIT 1");
     return $data;
 }
-function show_orderList($orderId, $debug_mode)
+function show_orderList($debug_mode)
 {
     $mydb = new db("root", "", "shopping", $debug_mode);
     $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount, orders.id as or_id, orders.status, orders.total 

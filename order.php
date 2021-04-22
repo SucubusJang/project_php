@@ -16,7 +16,6 @@
                 <th>จัดการ</th>
             </thead>
             <tbody id="show_order">
-
             </tbody>
         </Table>
         <div id="show_listproduct"></div>
@@ -25,7 +24,6 @@
         function loadContent() {
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
-                // console.log(this.responseText);
                 if (this.readyState == 4 && this.status) {
                     data = JSON.parse(this.responseText);
                     create_Table(data);
@@ -37,7 +35,6 @@
 
         function create_Table(data) {
             out = document.getElementById("show_order");
-            //console.log(data.length);
             text = "";
             for (i = 0; i < data.length; i++) {
                 text += "<tr>";
@@ -68,7 +65,6 @@
                 if (this.readyState == 4 && this.status) {
                     console.log(this.responseText);
                     data = JSON.parse(this.responseText);
-                    // alert(data.length);
                     text += `<div class="text-header" style="margin-bottom: 20px">
                                 <h2>Order Detail</h2>
                             </div>`;
@@ -93,8 +89,8 @@
                     }
                     text += "<td colspan='2' align='right'>Total:</td>";
                     text += "<td align='right'>" + total + "</td>";
-                    text += "<td colspan='1' align='right'></td>";
                     text += "<td></td>";
+                    text += "<td colspan='2' align='left'>"+ net +"</td>";
                     text += "</table>";
                     out.innerHTML = text;
                 }

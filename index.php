@@ -36,7 +36,6 @@
             <h1 style="color: white; font-weight: bold;">Product Catacories</h1>
         </div> -->
         <div id="show_product"></div>
-
     </div>
     </div>
     <script>
@@ -80,7 +79,7 @@
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    show_product();
+                    show_orderList();
                 }
             }
             xhttp.open("POST", "order_rest.php", true);
@@ -127,9 +126,10 @@
                         }
                     }
                     text += "<th colspan='2' align='right'>Total</th>";
-                    text += "<td align='right'>" + total + "</td>";
-                    text += "<td colspan='2' align='right'></td>";
+                    text += "<td align='right'>" + total + "</span></td>";
                     text += "<td></td>";
+                    text += "<td colspan='2' align='left'>" + net + "</td>";
+ 
                     text += "</table>";
                 }
                 out.innerHTML = text;
@@ -141,11 +141,10 @@
         }
 
         function del_order(idx, orId, qty) {
-
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    show_product();
+                    show_orderList();
                 }
             }
             xhttp.open("GET", "order_rest.php?Id=" + idx + "&del_order=del_order&orId=" + orId + "&qty=" + qty + "", true);
@@ -156,11 +155,12 @@
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    if (this.responseText == 1) {
+                    if (this.responseText == 1 && idx != null && total != 0) {
                         alert("ชำระเงินสำเร็จ");
                         show_orderList();
                     } else {
                         alert("ชำระเงินไม่สำเร็จ");
+                        show_orderList();
                     }
                 }
             }
