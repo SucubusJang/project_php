@@ -5,9 +5,13 @@
     include_once("nav.php");
     ?>
     <div class="container">
-        <div class="card-header" style="height: 70px; background-color: black; margin-top: 20px; margin-bottom: 10px; ">
-            <h1 style="color: white; font-weight: bold;">Shopping Cart</h1>
+
+        <div class="text-header">
+            <h1>Shopping Cart</h1>
         </div>
+        <!-- <div class="card-header" style="height: 70px; background-color: black; margin-top: 20px; margin-bottom: 10px; ">
+            <h1 style="color: white; font-weight: bold;">Shopping Cart</h1>
+        </div> -->
         <div class="row">
             <div class="col-md-3">
                 <label for="exampleFormControlInput1" class="form-label">เลขที่รายการ</label>
@@ -18,18 +22,21 @@
                 <input type="text" class="form-control" id="or_st" placeholder="สถานะรายการ" readonly>
             </div>
             <div class="col">
-               
+
             </div>
         </div>
         <div id="show_listproduct"></div>
         <div id="pay"></div>
     </div>
     <div class="container">
-        <div class="card-header" style="height: 70px; background-color:black; margin-top: 20px; margin-bottom: 10px;">
-            <h1 style="color: white; font-weight: bold;">Product Catacories</h1>
+        <div class="text-header">
+            <h1>Product Catacories</h1>
         </div>
+        <!-- <div class="card-header" style="height: 70px; background-color:black; margin-top: 20px; margin-bottom: 10px;">
+            <h1 style="color: white; font-weight: bold;">Product Catacories</h1>
+        </div> -->
         <div id="show_product"></div>
-        
+
     </div>
     </div>
     <script>
@@ -59,10 +66,10 @@
                                     </div>`;
                     }
                     text += "</div>";
-                    out.innerHTML = text; 
+                    out.innerHTML = text;
                     show_orderList();
                 }
-               
+
             }
             xhttp.open("GET", "product_rest.php?show_pro=show_pro", true);
             xhttp.send();
@@ -108,7 +115,7 @@
                         text += "<tr>";
                         text += "<td>" + data[i].name + "</td>";
                         text += "<td>" + data[i].id + "</td>";
-                        text += "<td align='right'>"+data[i].amount+"</td>";
+                        text += "<td align='right'>" + data[i].amount + "</td>";
                         text += "<td>" + data[i].price + "</td>";
                         text += "<td>" + data[i].price * data[i].amount + "</td>";
                         text += "<td><button type='button' class='btn btn-danger' onclick='del_order(" + data[i].id + "," + data[i].or_id + "," + data[i].amount + ")'><i class='fas fa-trash-alt'></i> ลบรายการ</button></td>";
