@@ -5,10 +5,10 @@
     include_once("nav.php");
     ?>
     <div class="container">
-        <div class="card-header" style="height: 70px; background-color: black; margin-top: 20px; margin-bottom: 10px; border-radius: 0px 100px 100px 0px;">
+        <div class="card-header" style="height: 70px; background-color: black; margin-top: 20px; margin-bottom: 10px; ">
             <h1 style="color: white; font-weight: bold;">Shopping Cart</h1>
         </div>
-        <div class="row g-3">
+        <div class="row">
             <div class="col-md-3">
                 <label for="exampleFormControlInput1" class="form-label">เลขที่รายการ</label>
                 <input type="text" class="form-control" id="or_Id" placeholder="เลขที่รายการ" readonly>
@@ -17,15 +17,19 @@
                 <label for="exampleFormControlInput1" class="form-label">สถานะรายการ</label>
                 <input type="text" class="form-control" id="or_st" placeholder="สถานะรายการ" readonly>
             </div>
+            <div class="col">
+               
+            </div>
         </div>
         <div id="show_listproduct"></div>
-        <div id="pay" style="margin-top: 10px;"></div>
+        <div id="pay"></div>
     </div>
     <div class="container">
-        <div class="card-header" style="height: 70px; background-color:black; margin-top: 20px; margin-bottom: 10px; border-radius: 0px 100px 100px 0px;">
+        <div class="card-header" style="height: 70px; background-color:black; margin-top: 20px; margin-bottom: 10px;">
             <h1 style="color: white; font-weight: bold;">Product Catacories</h1>
         </div>
         <div id="show_product"></div>
+        
     </div>
     </div>
     <script>
@@ -48,16 +52,17 @@
                                             <p class="card-text">฿ ${data[i].price}</p>
                                             <div class="row">
                                                 <div class="col-md-7"><input type="number" size="4" max="${data[i].stock}" min="1" value="1" class="form-control" id="${data[i].id}"></div>
-                                                <button onclick="add_product(${data[i].id})" class="btn btn-success col"><i class="fas fa-shopping-cart"></i> เพิ่มสินค้า</button>
+                                                <div class="col-md-5" style="padding-left: 0"><button style="width: 100%" onclick="add_product(${data[i].id})" class="btn btn-success"><i class="fas fa-shopping-cart"></i> เพิ่มสินค้า</button></div>
                                             </div>
                                             </div>
                                         </div>
                                     </div>`;
                     }
                     text += "</div>";
-                    out.innerHTML = text;
+                    out.innerHTML = text; 
+                    show_orderList();
                 }
-                show_orderList();
+               
             }
             xhttp.open("GET", "product_rest.php?show_pro=show_pro", true);
             xhttp.send();
@@ -104,7 +109,7 @@
                         text += "<tr>";
                         text += "<td>" + data[i].name + "</td>";
                         text += "<td>" + data[i].id + "</td>";
-                        text += "<td align='right'>" + data[i].amount + "</td>";
+                        text += "<td align='right'>"+data[i].amount+"</td>";
                         text += "<td>" + data[i].price + "</td>";
                         text += "<td>" + data[i].price * data[i].amount + "</td>";
                         text += "<td><button type='button' class='btn btn-danger' onclick='del_order(" + data[i].id + "," + data[i].or_id + "," + data[i].amount + ")'><i class='fas fa-trash-alt'></i> ลบรายการ</button></td>";
@@ -127,8 +132,7 @@
                 }
                 out.innerHTML = text;
                 pay = document.getElementById("pay");
-                pay.innerHTML = "<div style='text-align: center'><button class='btn btn-success' onclick='payment(" + orId.value + ")'><i class='fas fa-coins'></i> ชำระเงิน</button></div>";
-
+                pay.innerHTML = "<div style='text-align: center'><button style='width: 20%;' class='btn btn-success' onclick='payment(" + orId.value + ")'><i class='fas fa-coins'></i> ชำระเงิน</button></div>";
             }
             xhttp.open("GET", "order_rest.php?showlist=showlist", true);
             xhttp.send();
@@ -155,8 +159,6 @@
                 if (this.readyState == 4 && this.status == 200) {
                     alert("ชำระเงินสำเร็จ");
                     show_orderList();
-                } else {
-                    alert("ชำระเงินไม่สำเร็จ");
                 }
             }
             xhttp.open("POST", "order_rest.php", true);

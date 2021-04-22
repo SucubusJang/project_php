@@ -63,6 +63,8 @@
             text += "<td><input class='form-control' type='number' name='' id='price'></td></tr>";
             text += "<tr><td><label>จำนวนสินค้า</label></td>";
             text += "<td><input class='form-control' type='number' name='' id='stock'></td></tr>";
+            text += "<tr><td>รูปภาพ</td>";
+            text += "<td><div class='input-group'><input type='file' class='form-control' id='inputGroupFile04' aria-describedby='inputGroupFileAddon04' aria-label='Upload'></div></td></tr>";
             text += "<tr><td colspan='2'><button class='btn btn-success' onclick='add_pro()'>เพิ่มสินค้า</button></td></tr>";
             text += "</table>";
             out.innerHTML = text;
