@@ -19,8 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
 } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['Id']) && isset($_POST['qty'])) { // เพิ่มข้อมูล order
-        $qty = $_POST['qty'];
-        $pr_Id = $_POST['Id'];
         openbill($debug_mode);
     } else if (isset($_POST['update_order'])) { // ชำระเงิน
         $Id = $_POST['Id'];
