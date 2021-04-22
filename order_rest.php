@@ -25,7 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         openbill($debug_mode);
     } else if (isset($_POST['update_order'])) {
         $Id = $_POST['Id'];
-        update_status($Id, $debug_mode);
+        if(update_status($Id, $debug_mode)){
+            echo "1";
+        }else {
+            echo "0";
+        }
     }
 } else {
     debug_text("Error Unknow this Request", $debug_mode);

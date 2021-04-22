@@ -69,7 +69,6 @@
                     out.innerHTML = text;
                     show_orderList();
                 }
-
             }
             xhttp.open("GET", "product_rest.php?show_pro=show_pro", true);
             xhttp.send();
@@ -81,7 +80,6 @@
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert(`เพิ่มสินค้าสำเร็จ`);
                     show_product();
                 }
             }
@@ -147,7 +145,6 @@
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert("ลบรายการสำเร็จ");
                     show_product();
                 }
             }
@@ -159,8 +156,12 @@
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert("ชำระเงินสำเร็จ");
-                    show_orderList();
+                    if (this.responseText == 1) {
+                        alert("ชำระเงินสำเร็จ");
+                        show_orderList();
+                    } else {
+                        alert("ชำระเงินไม่สำเร็จ");
+                    }
                 }
             }
             xhttp.open("POST", "order_rest.php", true);
@@ -177,4 +178,5 @@
         }
     </script>
 </body>
+
 </html>
