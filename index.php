@@ -82,7 +82,6 @@
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhttp.send("Id=" + idx + "&qty=" + qty + "&orId=" + orId);
             qty.value = 1;
-
         }
 
         function show_orderList() {
