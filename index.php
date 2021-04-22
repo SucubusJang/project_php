@@ -102,9 +102,7 @@
             net = 0;
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    // console.log(this.responseText);
                     data = JSON.parse(this.responseText);
-                    // alert(data.length);
                     text = "<table class='table table-striped' style='margin-top: 10px'>";
                     text += "<thead class='table-dark'>";
                     for (j = 0; j < lable.length; j++) {
@@ -142,7 +140,6 @@
             }
             xhttp.open("GET", "order_rest.php?showlist=showlist", true);
             xhttp.send();
-
         }
 
         function del_order(idx, orId, qty) {
@@ -156,7 +153,6 @@
             }
             xhttp.open("GET", "order_rest.php?Id=" + idx + "&del_order=del_order&orId=" + orId + "&qty=" + qty + "", true);
             xhttp.send();
-
         }
 
         function payment(idx) {
@@ -181,5 +177,4 @@
         }
     </script>
 </body>
-
 </html>
