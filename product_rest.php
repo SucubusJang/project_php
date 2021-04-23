@@ -18,10 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
 } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['name_pro'])) { // เพิ่มสินค้า
+        $img = $_POST['img'];
         $name_pro = $_POST['name_pro'];
         $price_pro = $_POST['price_pro'];
         $stock_pro = $_POST['stock_pro'];
-        if (insert_product($name_pro, $price_pro, $stock_pro, $debug_mode)) { // ตรวจสอบว่าทำงานสำเร็จหรือไม่
+        if (insert_product($img,$name_pro, $price_pro, $stock_pro, $debug_mode)) { // ตรวจสอบว่าทำงานสำเร็จหรือไม่
             echo "1";
         } else {
             echo "0";
@@ -47,10 +48,10 @@ function show_product($debug_mode)
     $data = $mydb->query("SELECT * FROM `product`");
     return $data;
 }
-function insert_product($name_pro, $price_pro, $stock_pro, $debug_mode)
+function insert_product($img, $name_pro, $price_pro, $stock_pro, $debug_mode)
 {
     $mydb = new db("root", "", "shopping", $debug_mode);
-    $data = $mydb->query_only("INSERT INTO `product`(`id`, `name`, `price`, `stock`) VALUES (null,'{$name_pro}','{$price_pro}','{$stock_pro}')");
+    $data = $mydb->query_only("INSERT INTO `product`(`id`, `name`, `price`, `stock`,  `image`) VALUES (null,'{$name_pro}','{$price_pro}','{$stock_pro}','{$img}')");
     return $data;
 }
 function del_product($Id, $debug_mode)

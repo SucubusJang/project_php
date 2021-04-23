@@ -49,10 +49,15 @@
                     text = "";
                     text += "<div class='row g-4'>";
                     for (i = 0; i < data.length; i++) {
+                        if(data[i].image == ""){
+                           img = "img/photo.png";
+                        }else {
+                           img = data[i].image;
+                        }
                         text += ` 
                                     <div class="col-md-3"">
                                         <div class="card">
-                                             <img src="img/photo.png" class="card-img-top">
+                                             <img src="${img}" class="card-img-top">
                                             <div class="card-body">
                                             <h5 class="card-title">${data[i].name}</h5>
                                             <p class="card-text">฿ ${data[i].price}</p>

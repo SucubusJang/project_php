@@ -5,6 +5,7 @@
     include_once("nav.php");
     ?>
     <div class="container">
+        
         <div class="text-header">
             <h2>Manage Product</h2>
         </div>
@@ -12,6 +13,7 @@
         <table class="table table-striped" style="margin-top: 20px">
             <thead class="table-dark">
                 <th>รหัสสินค้า</th>
+                <th>ภาพสินค้า</th>
                 <th>ชื่อสินค้า</th>
                 <th>ราคาสินค้า</th>
                 <th>จำนวน</th>
@@ -29,6 +31,7 @@
             xhttp.onreadystatechange = function() {
                 console.log(this.readyState + ", ", this.status);
                 if (this.readyState == 4 && this.status == 200) {
+                    // console.log(this.responseText);
                     data = JSON.parse(this.responseText);
                     create_Table(data);
                 }
@@ -42,11 +45,19 @@
             text = "";
             for (i = 0; i < data.length; i++) {
                 text += "<tr>";
-                for (info in data[i]) {
-                    text += "<td>" + data[i][info] + "</td>";
-                }
+                text += "<td>"+data[i].id+"</td>";
+                text += "<td><img  src='" + data[i].image + "' style='width: 100px;' height='auto'></td>";
+                text += "<td>"+data[i].name+"</td>";
+                text += "<td>"+data[i].price+"</td>";
+                text += "<td>"+data[i].stock+"</td>";
                 text += "<td><button class='btn btn-warning' onclick='edit_pro(" + data[i].id + ")'><i class='fas fa-edit'></i> แก้ไข</button> <button class='btn btn-danger' onclick='del_pro(" + data[i].id + ")'><i class='fas fa-trash-alt'></i> ลบสินค้า</button></td>";
-                text += "</tr>\n";
+                text += "</tr>";
+                // text += "<tr>";
+                // for (info in data[i]) {
+                //     text += "<td>" + data[i][info] + "</td>";
+                // }
+               
+                // text += "</tr>\n";
             }
             out.innerHTML = text;
         }
@@ -54,19 +65,44 @@
         function show_add() {
             out = document.getElementById("out");
             text = "";
-            text = "<table class='table table-striped' style='margin-top: 20px'>";
-            text += "<tr><td><label>ชื่อสินค้า</label></td>";
-            text += "<td><input class='form-control' type='text' name='' id='name'></td></tr>";
-            text += "<tr><td><label>ราคาสินค้า</label></td>";
-            text += "<td><input class='form-control' type='number' name='' id='price'></td></tr>";
-            text += "<tr><td><label>จำนวนสินค้า</label></td>";
-            text += "<td><input class='form-control' type='number' name='' id='stock'></td></tr>";
-            text += "<tr><td colspan='2'><button type='submit' class='btn btn-success' onclick='add_pro()'><i class='far fa-plus-square'></i> เพิ่มสินค้า</button></td></tr>";
-            text += "</table>";
+            text += `<table class="table table-striped" style="margin-top: 20px">
+                     <tr><td colspan="2">
+                        <div class="mx-auto" style="width: 200px;">
+                        <img id="preview" src="https://placehold.co/200x200" alt="" width="200px">
+                     </div></td></tr>
+                     <tr><td><label>ชื่อสินค้า</label></td>
+                     <td><input class="form-control" type="text" name="" id="name"></td></tr>
+                     <tr><td><label>ราคาสินค้า</label></td>
+                     <td><input class="form-control" type="number" name="" id="price"></td></tr>
+                     <tr><td><label>จำนวนสินค้า</label></td>
+                     <td><input class="form-control" type="number" name="" id="stock"></td></tr>
+                     <tr><td>เพิ่มรูปภาพ</td>
+                     <td><div class="input-group">
+                        <input type="file" class="form-control" id="img" onchange="previewImage(this)">
+                     </div></td></tr>
+                     <tr><td colspan="2"><button type="submit" class="btn btn-success" onclick="add_pro()"><i class="far fa-plus-square"></i> เพิ่มสินค้า</button></td></tr>
+                     </table>`;
             out.innerHTML = text;
+        }
+        let img_data = "";
+
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result)
+                    img_data = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
         }
 
         function add_pro() {
+            var formdata = new FormData();
+            formdata.append('img', img_data);
+            formdata.append('name_pro', document.getElementById("name").value);
+            formdata.append('price_pro', document.getElementById("price").value);
+            formdata.append('stock_pro',document.getElementById("stock").value);
             out = document.getElementById("out");
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -81,15 +117,11 @@
                 }
             }
             xhttp.open("POST", "product_rest.php", true);
-            xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            name_pro = document.getElementById("name");
-            price_pro = document.getElementById("price");
-            stock_pro = document.getElementById("stock");
-            xhttp.send("name_pro=" + name_pro.value + "&price_pro=" + price_pro.value + "&stock_pro=" + stock_pro.value);
-            name_pro.value = null;
-            price_pro.value = null;
-            stock_pro.value = null;
+            // xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhttp.send(formdata);
+           
         }
+
         function edit_pro(idx) {
             label = ['ชื่อสินค้า', 'ราคา', 'จำนวนสินค้า'];
             Ids = ['name', 'price', 'stock'];
@@ -140,6 +172,7 @@
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhttp.send("name=" + name + "&price=" + price + "&stock=" + stock + "&Id=" + idx);
         }
+
         function del_pro(idx) {
             out = document.getElementById("out");
             let xhttp = new XMLHttpRequest();
@@ -149,7 +182,7 @@
                         alert("ลบสินค้าสำเร็จ");
                         out.innerHTML = "";
                         loadContent();
-                    }else {
+                    } else {
                         alert("ลบสินค้าไม่สำเร็จ");
                     }
                 }

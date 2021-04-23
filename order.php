@@ -25,6 +25,7 @@
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status) {
+                    console.log(this.responseText);
                     data = JSON.parse(this.responseText);
                     create_Table(data);
                 }
@@ -54,7 +55,7 @@
         }
 
         function show_list(idx) {
-            lable = ['ชื่อสินค้า', 'รหัสสินค้า', 'จำนวน', 'ราคา', 'ราคารวม'];
+            lable = ['ชื่อสินค้า', 'รหัสสินค้า', 'จำนวน', 'ราคา', 'ราคารวม']; // ข้อความบนหัวตาราง
             out = document.getElementById("show_listproduct");
             let xhttp = new XMLHttpRequest();
             text = "";
