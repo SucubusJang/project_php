@@ -59,7 +59,7 @@ function openbill($debug_mode)
 function show_list($orderId, $debug_mode)
 {
     $mydb = new db("root", "", "shopping", $debug_mode);
-    $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount, orders.id, orders.status, orders.total 
+    $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount, orders.id, orders.status, orders.total ,product.image
                                 FROM orders,order_detail,product 
                                 WHERE product.id = order_detail.id_product && orders.id = order_detail.id_orders && orders.id = '{$orderId}'");
     return $data;
@@ -68,7 +68,7 @@ function show_list($orderId, $debug_mode)
 function show_orderList($debug_mode)
 {
     $mydb = new db("root", "", "shopping", $debug_mode);
-    $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount, orders.id as or_id, orders.status, orders.total 
+    $data = $mydb->query("SELECT product.id, product.name, product.price, order_detail.amount, orders.id as or_id, orders.status, orders.total ,product.image
                             FROM orders,order_detail,product 
                             WHERE product.id = order_detail.id_product && orders.id = order_detail.id_orders && orders.status = 0");
     return $data;

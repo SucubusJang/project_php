@@ -94,7 +94,7 @@
         }
 
         function show_orderList() {
-            lable = ['ชื่อสินค้า', 'รหัสสินค้า', 'จำนวน', 'ราคา', 'ราคารวม', 'ลบรายการ'];
+            lable = ['ชื่อสินค้า','รหัสสินค้า', 'จำนวน', 'ราคา', 'ราคารวม', 'ลบรายการ'];
             let xhttp = new XMLHttpRequest();
             out = document.getElementById("show_listproduct");
             orId = document.getElementById("or_Id");
@@ -115,6 +115,7 @@
                         text += "<tr>";
                         text += "<td>" + data[i].name + "</td>";
                         text += "<td>" + data[i].id + "</td>";
+                        // text += "<td><img  src='" + data[i].image + "' style='width: 100px;' height='auto'></td>";
                         text += "<td align='right'>" + data[i].amount + "</td>";
                         text += "<td>" + data[i].price + "</td>";
                         text += "<td>" + data[i].price * data[i].amount + "</td>";
