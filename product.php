@@ -5,7 +5,7 @@
     include_once("nav.php");
     ?>
     <div class="container">
-        
+
         <div class="text-header">
             <h2>Manage Product</h2>
         </div>
@@ -45,19 +45,14 @@
             text = "";
             for (i = 0; i < data.length; i++) {
                 text += "<tr>";
-                text += "<td>"+data[i].id+"</td>";
+                text += "<td>" + data[i].id + "</td>";
                 text += "<td><img  src='" + data[i].image + "' style='width: 100px;' height='auto'></td>";
-                text += "<td>"+data[i].name+"</td>";
-                text += "<td>"+data[i].price+"</td>";
-                text += "<td>"+data[i].stock+"</td>";
+                text += "<td>" + data[i].name + "</td>";
+                text += "<td>" + data[i].price + "</td>";
+                text += "<td>" + data[i].stock + "</td>";
                 text += "<td><button class='btn btn-warning' onclick='edit_pro(" + data[i].id + ")'><i class='fas fa-edit'></i> แก้ไข</button> <button class='btn btn-danger' onclick='del_pro(" + data[i].id + ")'><i class='fas fa-trash-alt'></i> ลบสินค้า</button></td>";
                 text += "</tr>";
-                // text += "<tr>";
-                // for (info in data[i]) {
-                //     text += "<td>" + data[i][info] + "</td>";
-                // }
-               
-                // text += "</tr>\n";
+
             }
             out.innerHTML = text;
         }
@@ -102,7 +97,7 @@
             formdata.append('img', img_data);
             formdata.append('name_pro', document.getElementById("name").value);
             formdata.append('price_pro', document.getElementById("price").value);
-            formdata.append('stock_pro',document.getElementById("stock").value);
+            formdata.append('stock_pro', document.getElementById("stock").value);
             out = document.getElementById("out");
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
@@ -119,7 +114,7 @@
             xhttp.open("POST", "product_rest.php", true);
             // xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhttp.send(formdata);
-           
+
         }
 
         function edit_pro(idx) {
@@ -136,12 +131,12 @@
                     data = JSON.parse(this.responseText);
                     text = "<table class='table table-striped' style='margin-top: 20px'>";
                     for (i = 0; i < data.length; i++) {
-                        text += "<tr>";
                         for (info in data[i]) {
                             text += "<tr><td>" + label[j] + "</td><td><input class='form-control' type='" + type[j] + "' name='' id='" + Ids[j] + "' value='" + data[i][info] + "'></td></tr>";
                             j++;
                         }
-                        text += "</tr>";
+                        text += "";
+
                     }
                     text += "<tr><td colspan='2'><button class='btn btn-warning' onclick='edit_data(" + idx + ")'><i class='fas fa-edit'></i> แก้ไข</button></td></tr>";
                     out.innerHTML = text + "</table>";

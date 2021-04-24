@@ -94,7 +94,7 @@
         }
 
         function show_orderList() {
-            lable = ['ชื่อสินค้า','รหัสสินค้า', 'จำนวน', 'ราคา', 'ราคารวม', 'ลบรายการ'];
+            lable = ['รหัสสินค้า','รูปภาพ','ชื่อสินค้า', 'จำนวน', 'ราคา', 'ราคารวม', 'ลบรายการ'];
             let xhttp = new XMLHttpRequest();
             out = document.getElementById("show_listproduct");
             orId = document.getElementById("or_Id");
@@ -113,9 +113,9 @@
                     text += "</thead>";
                     for (i = 0; i < data.length; i++) {
                         text += "<tr>";
-                        text += "<td>" + data[i].name + "</td>";
                         text += "<td>" + data[i].id + "</td>";
-                        // text += "<td><img  src='" + data[i].image + "' style='width: 100px;' height='auto'></td>";
+                        text += "<td><img  src='" + data[i].image + "' style='width: 100px;' height='auto'></td>";
+                        text += "<td>" + data[i].name + "</td>";
                         text += "<td align='right'>" + data[i].amount + "</td>";
                         text += "<td>" + data[i].price + "</td>";
                         text += "<td>" + data[i].price * data[i].amount + "</td>";
@@ -131,7 +131,7 @@
                             or_st.value = "รายการเสร็จสิ้น";
                         }
                     }
-                    text += "<th colspan='2' align='right'>Total</th>";
+                    text += "<th colspan='3' align='right'>Total</th>";
                     text += "<td align='right'>" + total + "</span></td>";
                     text += "<td></td>";
                     text += "<td colspan='2' align='left'>" + net + "</td>";
